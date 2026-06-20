@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Roopa R — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy-900:#0A1B33;
+    --navy-800:#11294B;
+    --navy-700:#1B3A66;
+    --gold:#C9A227;
+    --gold-light:#E2C465;
+    --cream:#F8F5EC;
+    --cream-deep:#EFE9D8;
+    --ink:#1C1C1E;
+    --slate:#5B6B79;
+    --rule:rgba(11,27,51,0.12);
+    --max:1140px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Lora', Georgia, serif;
+    font-size:16px;
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,h4{
+    font-family:'Playfair Display', Georgia, serif;
+    margin:0;
+    color:var(--navy-900);
+    font-weight:600;
+  }
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    color:var(--gold);
+    font-weight:500;
+  }
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:var(--max); margin:0 auto; padding:0 32px;}
+  img{max-width:100%; display:block;}
+
+  /* ---------- focus ---------- */
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--gold);
+    outline-offset:3px;
+  }
+
+  /* ---------- nav ---------- */
+  header.site-nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(248,245,236,0.92);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--rule);
+  }
+  .nav-inner{
+    max-width:var(--max); margin:0 auto; padding:16px 32px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .brand{
+    font-family:'Playfair Display', serif;
+    font-size:19px; font-weight:700; color:var(--navy-900);
+    letter-spacing:0.02em;
+  }
+  .brand span{color:var(--gold);}
+  nav.links{display:flex; gap:28px;}
+  nav.links a{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px; letter-spacing:0.08em; text-transform:uppercase;
+    color:var(--navy-800); position:relative; padding:4px 0;
+  }
+  nav.links a::after{
+    content:''; position:absolute; left:0; bottom:-2px; width:0; height:1px;
+    background:var(--gold); transition:width .25s ease;
+  }
+  nav.links a:hover::after{width:100%;}
+  .nav-toggle{display:none; background:none; border:none; cursor:pointer; padding:6px;}
+  .nav-toggle span{display:block; width:22px; height:2px; background:var(--navy-900); margin:5px 0;}
+
+  @media (max-width:760px){
+    nav.links{
+      position:absolute; top:64px; left:0; right:0;
+      background:var(--cream); flex-direction:column; gap:0;
+      border-bottom:1px solid var(--rule);
+      max-height:0; overflow:hidden; transition:max-height .3s ease;
+    }
+    nav.links.open{max-height:380px;}
+    nav.links a{padding:14px 32px; border-top:1px solid var(--rule); width:100%;}
+    .nav-toggle{display:block;}
+  }
+
+  /* ---------- hero ---------- */
+  .hero{
+    position:relative;
+    background:radial-gradient(circle at 78% 18%, var(--navy-700), var(--navy-900) 60%);
+    color:var(--cream);
+    overflow:hidden;
+    padding:96px 0 110px;
+  }
+  .hero::before{
+    content:'';
+    position:absolute; inset:0;
+    background-image:
+      linear-gradient(rgba(201,162,39,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(201,162,39,0.06) 1px, transparent 1px);
+    background-size:42px 42px;
+    opacity:0.5;
+  }
+  .hero-inner{
+    position:relative; z-index:2;
+    display:grid; grid-template-columns:1.15fr 0.85fr; gap:56px; align-items:center;
+  }
+  .hero-eyebrow{color:var(--gold-light); font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.2em; text-transform:uppercase; margin-bottom:18px;}
+  .hero h1{
+    color:var(--cream); font-size:clamp(40px,5.4vw,64px); line-height:1.04; font-weight:700;
+  }
+  .hero h1 em{color:var(--gold-light); font-style:italic; font-weight:500;}
+  .hero .role{
+    margin-top:18px; font-family:'Lora',serif; font-size:19px; color:#CBD6E2; font-style:italic;
+  }
+  .hero p.summary{
+    margin-top:22px; max-width:540px; color:#D8DEE6; font-size:16px;
+  }
+  .hero .cta-row{margin-top:34px; display:flex; gap:16px; flex-wrap:wrap;}
+  .btn{
+    font-family:'IBM Plex Mono',monospace; font-size:12.5px; letter-spacing:0.06em;
+    text-transform:uppercase; padding:13px 26px; border-radius:2px; display:inline-flex;
+    align-items:center; gap:8px; border:1px solid transparent; transition:transform .2s ease, background .2s ease;
+  }
+  .btn-gold{background:var(--gold); color:var(--navy-900); font-weight:600;}
+  .btn-gold:hover{background:var(--gold-light); transform:translateY(-2px);}
+  .btn-outline{border-color:rgba(226,196,101,0.55); color:var(--cream);}
+  .btn-outline:hover{border-color:var(--gold-light); background:rgba(226,196,101,0.08); transform:translateY(-2px);}
+
+  .hero-photo-wrap{position:relative; display:flex; justify-content:center;}
+  .hero-photo-frame{
+    position:relative; width:300px; height:300px; border-radius:50%;
+    border:2px solid var(--gold); padding:10px;
+  }
+  .hero-photo-frame::before{
+    content:''; position:absolute; inset:-18px; border:1px solid rgba(226,196,101,0.35); border-radius:50%;
+  }
+  .hero-photo-frame img{
+    width:100%; height:100%; object-fit:cover; border-radius:50%;
+    box-shadow:0 18px 40px rgba(0,0,0,0.45);
+  }
+  .scatter-svg{position:absolute; inset:0; width:100%; height:100%; pointer-events:none;}
+
+  @media (max-width:860px){
+    .hero-inner{grid-template-columns:1fr; text-align:center;}
+    .hero p.summary{margin:22px auto 0;}
+    .hero .cta-row{justify-content:center;}
+    .hero-photo-frame{width:220px; height:220px; margin-top:12px;}
+  }
+
+  /* ---------- section shell ---------- */
+  section{padding:88px 0;}
+  .section-head{margin-bottom:46px; max-width:640px;}
+  .section-head h2{font-size:clamp(28px,3.4vw,36px); margin-top:10px;}
+  .rule-mark{width:54px; height:1px; background:var(--gold); margin:14px 0 0;}
+  .alt-bg{background:var(--cream-deep);}
+
+  /* ---------- about ---------- */
+  .about-grid{display:grid; grid-template-columns:1.3fr 0.7fr; gap:54px;}
+  .about-grid p{color:#33414C; font-size:16.5px;}
+  .lang-list{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:10px;}
+  .lang-list li{
+    display:flex; justify-content:space-between; font-family:'IBM Plex Mono',monospace; font-size:13px;
+    border-bottom:1px dashed var(--rule); padding-bottom:8px; color:var(--navy-800);
+  }
+  .lang-list span.level{color:var(--gold); font-weight:500;}
+  .side-card{background:#fff; border:1px solid var(--rule); padding:28px; border-radius:2px;}
+  .side-card h4{font-size:15px; font-family:'IBM Plex Mono',monospace; letter-spacing:0.06em; text-transform:uppercase; color:var(--navy-800); margin-bottom:16px;}
+  @media (max-width:860px){.about-grid{grid-template-columns:1fr;}}
+
+  /* ---------- projects ---------- */
+  .project-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:28px;}
+  .project-card{
+    background:#fff; border:1px solid var(--rule); padding:30px 28px; position:relative;
+    transition:transform .25s ease, box-shadow .25s ease;
+  }
+  .project-card:hover{transform:translateY(-4px); box-shadow:0 18px 36px rgba(11,27,51,0.10);}
+  .project-icon{width:40px; height:40px; margin-bottom:18px;}
+  .project-card h3{font-size:19px; line-height:1.3;}
+  .project-meta{
+    font-family:'IBM Plex Mono',monospace; font-size:11.5px; letter-spacing:0.04em; color:var(--slate);
+    margin-top:8px; display:flex; gap:14px; flex-wrap:wrap;
+  }
+  .project-meta .tools{color:var(--navy-700);}
+  .project-card p{margin-top:14px; font-size:15px; color:#3C4953;}
+  @media (max-width:760px){.project-grid{grid-template-columns:1fr;}}
+
+  /* ---------- skills ---------- */
+  .skills-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:36px;}
+  .skill-col h4{
+    font-family:'IBM Plex Mono',monospace; font-size:12.5px; letter-spacing:0.1em; text-transform:uppercase;
+    color:var(--gold); margin-bottom:18px; border-bottom:1px solid var(--rule); padding-bottom:10px;
+  }
+  .chip-row{display:flex; flex-wrap:wrap; gap:9px;}
+  .chip{
+    font-family:'IBM Plex Mono',monospace; font-size:12.5px; padding:7px 14px;
+    border:1px solid var(--navy-800); color:var(--navy-800); border-radius:2px;
+  }
+  @media (max-width:860px){.skills-grid{grid-template-columns:1fr; gap:30px;}}
+
+  /* ---------- certifications ---------- */
+  .cert-list{list-style:none; margin:0; padding:0;}
+  .cert-list li{
+    display:grid; grid-template-columns:1fr auto; gap:20px; align-items:baseline;
+    padding:16px 0; border-bottom:1px solid var(--rule);
+  }
+  .cert-list li:first-child{border-top:1px solid var(--rule);}
+  .cert-name{font-family:'Lora',serif; font-size:16px; color:var(--navy-900); font-weight:500;}
+  .cert-org{color:var(--slate); font-size:13.5px; font-style:italic;}
+  .cert-date{font-family:'IBM Plex Mono',monospace; font-size:12.5px; color:var(--gold); white-space:nowrap;}
+
+  /* ---------- education timeline ---------- */
+  .timeline{position:relative; padding-left:34px;}
+  .timeline::before{content:''; position:absolute; left:5px; top:6px; bottom:6px; width:1px; background:var(--rule);}
+  .tl-item{position:relative; padding-bottom:42px;}
+  .tl-item:last-child{padding-bottom:0;}
+  .tl-item::before{
+    content:''; position:absolute; left:-34px; top:5px; width:11px; height:11px; border-radius:50%;
+    background:var(--cream-deep); border:2px solid var(--gold);
+  }
+  .tl-date{font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--slate); letter-spacing:0.04em;}
+  .tl-item h3{font-size:19px; margin-top:6px;}
+  .tl-item .deg{color:var(--navy-700); font-style:italic; margin-top:2px; font-size:15px;}
+  .tl-item .cgpa{font-family:'IBM Plex Mono',monospace; font-size:12.5px; color:var(--gold); margin-top:6px; display:inline-block;}
+
+  /* ---------- beyond ---------- */
+  .beyond-grid{display:grid; grid-template-columns:1fr 1fr; gap:54px;}
+  .beyond-grid h4{
+    font-family:'IBM Plex Mono',monospace; font-size:12.5px; letter-spacing:0.1em; text-transform:uppercase;
+    color:var(--gold); margin-bottom:18px;
+  }
+  .beyond-grid ul{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:14px;}
+  .beyond-grid li{padding-left:18px; position:relative; font-size:15px; color:#33414C;}
+  .beyond-grid li::before{content:'◆'; position:absolute; left:0; top:1px; color:var(--gold); font-size:10px;}
+  .beyond-grid li .role-date{display:block; font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:var(--slate); margin-top:3px;}
+
+  /* ---------- contact / footer ---------- */
+  footer{background:var(--navy-900); color:#D8DEE6; padding:80px 0 36px;}
+  .footer-grid{display:grid; grid-template-columns:1.2fr 1fr; gap:40px; align-items:start;}
+  footer h2{color:var(--cream); font-size:clamp(26px,3.2vw,34px);}
+  footer p{color:#B9C4D0; max-width:440px; margin-top:14px;}
+  .contact-list{list-style:none; margin:26px 0 0; padding:0; display:flex; flex-direction:column; gap:14px;}
+  .contact-list a, .contact-list span{
+    font-family:'IBM Plex Mono',monospace; font-size:14px; color:#D8DEE6; transition:color .2s ease;
+  }
+  .contact-list a:hover{color:var(--gold-light);}
+  .contact-label{color:var(--gold); margin-right:10px;}
+  .footer-bottom{
+    margin-top:60px; padding-top:24px; border-top:1px solid rgba(255,255,255,0.08);
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;
+    font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:#7D8C99;
+  }
+  @media (max-width:760px){.footer-grid{grid-template-columns:1fr;} .beyond-grid{grid-template-columns:1fr;}}
+
+  /* ---------- reveal on scroll ---------- */
+  .reveal{opacity:0; transform:translateY(16px); transition:opacity .6s ease, transform .6s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+  @media (prefers-reduced-motion: reduce){
+    .reveal{opacity:1; transform:none; transition:none;}
+    html{scroll-behavior:auto;}
+  }
+</style>
+</head>
+<body>
+
+<header class="site-nav">
+  <div class="nav-inner">
+    <div class="brand">ROOPA R<span>.</span></div>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="links" id="navLinks">
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#education">Education</a>
+      <a href="#certifications">Certifications</a>
+      <a href="#beyond">EXtra CA</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ===================== HERO ===================== -->
+<section class="hero">
+  <svg class="scatter-svg" viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <line x1="60" y1="560" x2="1140" y2="120" stroke="#C9A227" stroke-opacity="0.28" stroke-width="1.5"/>
+    <g fill="#E2C465" fill-opacity="0.55">
+      <circle cx="120" cy="510" r="3"/><circle cx="200" cy="470" r="4"/><circle cx="260" cy="500" r="3"/>
+      <circle cx="340" cy="420" r="3.5"/><circle cx="410" cy="380" r="3"/><circle cx="470" cy="410" r="4"/>
+      <circle cx="540" cy="330" r="3"/><circle cx="610" cy="300" r="3.5"/><circle cx="680" cy="320" r="3"/>
+      <circle cx="760" cy="250" r="4"/><circle cx="830" cy="230" r="3"/><circle cx="900" cy="190" r="3.5"/>
+      <circle cx="970" cy="200" r="3"/><circle cx="1040" cy="150" r="4"/><circle cx="1100" cy="130" r="3"/>
+    </g>
+  </svg>
+  <div class="wrap hero-inner">
+    <div>
+      <div class="hero-eyebrow">M.Sc. Statistics · Batch 2025–27</div>
+      <h1>Roopa R<br><em>Statistics, in service of decisions.</em></h1>
+      <p class="role">Postgraduate Student, Statistics — CHRIST (Deemed to be University), Bengaluru</p>
+      <p class="summary">Postgraduate student in Statistics applying analytical thinking and statistical methods to real‑world problems — from stochastic simulations to environmental data and operational systems. Committed to continuous learning and measurable impact.</p>
+      <div class="cta-row">
+        <a class="btn btn-gold" href="mailto:roopa.r@stat.christuniversity.in">Email Me</a>
+        <a class="btn btn-outline" href="Roopa_R_Resume.pdf" target="_blank" rel="noopener">Download Resume</a>
+        <a class="btn btn-outline" href="https://www.linkedin.com/in/roopa-r-9889762b1/" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </div>
+    <div class="hero-photo-wrap">
+      <div class="hero-photo-frame">
+        <img src="Profile.jpeg" alt="Portrait of Roopa R">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== ABOUT ===================== -->
+<section id="about">
+  <div class="wrap about-grid reveal">
+    <div>
+      <div class="eyebrow">01 — About</div>
+      <h2>A grounded approach to data</h2>
+      <div class="rule-mark"></div>
+      <p style="margin-top:24px;">I'm a postgraduate student of Statistics at CHRIST (Deemed to be University), Bengaluru, with a foundation built at Madras Christian College, Chennai. My work spans stochastic process simulation, exploratory data analysis, and applied operations research — always with an eye toward translating numbers into decisions that matter.</p>
+      <p>Outside coursework, I've contributed to a government‑backed socio‑economic field study, volunteered across university events, and qualified the Actuarial Common Entrance Test (ACET) — steps toward a career that blends rigorous analysis with real‑world relevance.</p>
+    </div>
+    <div class="side-card">
+      <h4>Languages</h4>
+      <ul class="lang-list">
+        <li>English <span class="level">Fluent</span></li>
+        <li>Tamil <span class="level">Native</span></li>
+        <li>Hindi <span class="level">Basic</span></li>
+      </ul>
+      <h4 style="margin-top:28px;">Soft Skills</h4>
+      <div class="chip-row">
+        <span class="chip">Quick Learner</span>
+        <span class="chip">Problem Solving</span>
+        <span class="chip">Time Management</span>
+        <span class="chip">Adaptable</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PROJECTS ===================== -->
+<section class="alt-bg" id="projects">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">02 — Projects</div>
+      <h2>Selected Work</h2>
+      <div class="rule-mark"></div>
+    </div>
+    <div class="project-grid reveal">
+
+      <div class="project-card">
+        <svg class="project-icon" viewBox="0 0 40 40" fill="none"><path d="M3 32 Q12 10 20 22 T37 8" stroke="#C9A227" stroke-width="2" fill="none"/><circle cx="20" cy="22" r="2" fill="#11294B"/></svg>
+        <h3>Compound Poisson Process Simulation</h3>
+        <div class="project-meta"><span class="tools">R Shiny · GitHub</span><span>Nov 2025</span></div>
+        <p>Built an interactive simulation of the Compound Poisson Process to study event arrivals and aggregated outcomes, demonstrating applied understanding of stochastic processes and probabilistic modelling.</p>
+      </div>
+
+      <div class="project-card">
+        <svg class="project-icon" viewBox="0 0 40 40" fill="none"><path d="M20 4 C12 14 8 20 8 26 a12 12 0 0024 0c0-6-4-12-12-22z" stroke="#C9A227" stroke-width="2" fill="none"/></svg>
+        <h3>Exploratory Analysis of Indian Weather Patterns (2000–2024)</h3>
+        <div class="project-meta"><span class="tools">Python · Pandas · Jupyter</span><span>Aug 2025</span></div>
+        <p>Analyzed 24 years of weather data across Indian cities to study temperature trends, seasonal rainfall, and extreme events — including preprocessing, feature engineering, EDA, and an agricultural risk‑assessment dashboard.</p>
+      </div>
+
+      <div class="project-card">
+        <svg class="project-icon" viewBox="0 0 40 40" fill="none"><rect x="5" y="5" width="13" height="13" stroke="#C9A227" stroke-width="2"/><rect x="22" y="5" width="13" height="13" stroke="#C9A227" stroke-width="2"/><rect x="5" y="22" width="13" height="13" stroke="#C9A227" stroke-width="2"/><rect x="22" y="22" width="13" height="13" stroke="#C9A227" stroke-width="2"/></svg>
+        <h3>Smart Mess Meal Planning & Food Waste Reduction System</h3>
+        <div class="project-meta"><span class="tools">Java · Java Swing · OOP</span><span>Mar 2026</span></div>
+        <p>Designed a GUI‑based application to predict meal demand and quantify food waste in hostel mess operations, supporting more efficient resource planning.</p>
+      </div>
+
+      <div class="project-card">
+        <svg class="project-icon" viewBox="0 0 40 40" fill="none"><circle cx="13" cy="14" r="5" stroke="#C9A227" stroke-width="2"/><circle cx="27" cy="14" r="5" stroke="#C9A227" stroke-width="2"/><path d="M4 34c0-7 5-11 9-11s9 4 9 11M18 34c0-7 5-11 9-11s9 4 9 11" stroke="#C9A227" stroke-width="2"/></svg>
+        <h3>Socio‑Economic and Psychological Wellness Survey</h3>
+        <div class="project-meta"><span class="tools">Field Research · Govt. of Tamil Nadu</span><span>Aug 2023</span></div>
+        <p>Conducted field data collection for a government‑approved socio‑economic study under the Vada Chennai Valarchi Thittam initiative.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SKILLS ===================== -->
+<section id="skills">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">03 — Skills</div>
+      <h2>Toolkit & Domain Strength</h2>
+      <div class="rule-mark"></div>
+    </div>
+    <div class="skills-grid reveal">
+      <div class="skill-col">
+        <h4>Technical</h4>
+        <div class="chip-row">
+          <span class="chip">Python</span><span class="chip">R</span><span class="chip">SQL</span>
+          <span class="chip">Excel</span><span class="chip">Word</span><span class="chip">PowerPoint</span>
+          <span class="chip">Minitab</span>
+        </div>
+      </div>
+      <div class="skill-col">
+        <h4>Domain</h4>
+        <div class="chip-row">
+          <span class="chip">Regression</span><span class="chip">Statistical Inference</span>
+          <span class="chip">Operations Research</span><span class="chip">Design of Experiments</span>
+          <span class="chip">Time Series</span><span class="chip">Machine Learning</span>
+          <span class="chip">Six Sigma (Green Belt)</span>
+        </div>
+      </div>
+      <div class="skill-col">
+        <h4>Working Style</h4>
+        <div class="chip-row">
+          <span class="chip">Quick Learner</span><span class="chip">Problem Solving</span>
+          <span class="chip">Time Management</span><span class="chip">Field Research</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== EDUCATION ===================== -->
+<section class="alt-bg" id="education">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">04 — Education</div>
+      <h2>Academic Path</h2>
+      <div class="rule-mark"></div>
+    </div>
+    <div class="timeline reveal">
+      <div class="tl-item">
+        <div class="tl-date">June 2025 – May 2027 (Expected)</div>
+        <h3>CHRIST (Deemed to be University), Bengaluru</h3>
+        <div class="deg">Master of Science (M.Sc.) in Statistics</div>
+        <span class="cgpa">CGPA 3.46 / 4.0</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">August 2022 – May 2025</div>
+        <h3>Madras Christian College, Chennai</h3>
+        <div class="deg">Bachelor of Science (B.Sc.) in Statistics · University of Madras</div>
+        <span class="cgpa">CGPA 9.0 / 10.0</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">Class XII — May 2022 · Class X — May 2020</div>
+        <h3>Vivekananda Vidyalaya Matric Hr. Sec. School, Tamil Nadu</h3>
+        <div class="deg">Class XII — 98.83% · Class X — 86.4%</div>
+        <span class="cgpa">1st Rank, Class XII (98.93%)</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CERTIFICATIONS ===================== -->
+<section id="certifications">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">05 — Certifications & Training</div>
+      <h2>Continued Learning</h2>
+      <div class="rule-mark"></div>
+    </div>
+    <ul class="cert-list reveal">
+      <li><div><div class="cert-name">ACET (Qualified)</div><div class="cert-org">Institute of Actuaries of India</div></div><div class="cert-date">Jan 2026</div></li>
+      <li><div><div class="cert-name">Excel Essential Training (Microsoft 365)</div><div class="cert-org">LinkedIn Learning</div></div><div class="cert-date">Jun 2024</div></li>
+      <li><div><div class="cert-name">Foundations of R Software</div><div class="cert-org">NPTEL</div></div><div class="cert-date">Jul – Oct 2024</div></li>
+      <li><div><div class="cert-name">Barclays Life Skills Programme</div><div class="cert-org">GTT Foundation</div></div><div class="cert-date">Jul 2024</div></li>
+      <li><div><div class="cert-name">SQL for Data Analysis</div><div class="cert-org">LinkedIn Learning</div></div><div class="cert-date">Jul 2024</div></li>
+      <li><div><div class="cert-name">Junior Grade Typewriting English</div><div class="cert-org">Government of Tamil Nadu</div></div><div class="cert-date">Feb 2022</div></li>
+      <li><div><div class="cert-name">Senior Grade Typewriting English</div><div class="cert-org">Government of Tamil Nadu</div></div><div class="cert-date">Aug 2022</div></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===================== BEYOND ===================== -->
+<section class="alt-bg" id="beyond">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">06 — Beyond the Classroom</div>
+      <h2>Leadership & Recognition</h2>
+      <div class="rule-mark"></div>
+    </div>
+    <div class="beyond-grid reveal">
+      <div>
+        <h4>Co‑Curricular & Leadership</h4>
+        <ul>
+          <li>Volunteer, Hospitality Committee — Expectations '25, CHRIST University<span class="role-date">Nov 2025</span></li>
+          <li>Volunteer, Decoration Committee — Inflectra, CHRIST University<span class="role-date">Mar 2026</span></li>
+          <li>Volunteer, Event — IPL Auction, Inflectra, CHRIST University<span class="role-date">Mar 2026</span></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Achievements</h4>
+        <ul>
+          <li>Secured 1st Rank in Class XII with a score of 98.93% — recognized for academic excellence.<span class="role-date">May 2022</span></li>
+          <li>Awarded Prize, Women's Day Collage Making Competition — Dept. of Statistics and Data Science, CHRIST University.<span class="role-date">2026</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CONTACT / FOOTER ===================== -->
+<footer id="contact">
+  <div class="wrap footer-grid">
+    <div>
+      <div class="eyebrow" style="color:var(--gold-light);">07 — Contact</div>
+      <h2>Let's talk numbers.</h2>
+      <p>Open to internships, research collaborations, and analytics roles where careful statistical thinking can make a real difference.</p>
+    </div>
+    <ul class="contact-list">
+      <li><span class="contact-label">Email</span><a href="mailto:roopa.r@stat.christuniversity.in">roopa.r@stat.christuniversity.in</a></li>
+      <li><span class="contact-label">Phone</span><span>+91 63816 72364</span></li>
+      <li><span class="contact-label">LinkedIn</span><a href="https://www.linkedin.com/in/roopa-r-9889762b1/" target="_blank" rel="noopener">linkedin.com/in/roopa</a></li>
+      <li><span class="contact-label">Location</span><span>Bengaluru, Karnataka</span></li>
+    </ul>
+  </div>
+  <div class="wrap footer-bottom">
+    <span>© 2026 Roopa R</span>
+    <span>CHRIST (Deemed to be University) · Excellence and Service</span>
+  </div>
+</footer>
+
+<script>
+  // mobile nav toggle
+  const toggle = document.getElementById('navToggle');
+  const links = document.getElementById('navLinks');
+  toggle.addEventListener('click', () => {
+    const open = links.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', open);
+  });
+  links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    links.classList.remove('open');
+    toggle.setAttribute('aria-expanded', false);
+  }));
+
+  // reveal on scroll
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.15 });
+  reveals.forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
